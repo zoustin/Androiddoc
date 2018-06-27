@@ -19,3 +19,5 @@ AIDL全称为(Android Interface Definition Language) 翻译过来就是安卓接
 当你要跟另一个APP进行通信传递数据，就需要使用到AIDL,就比如我们调用第三方登录、支付接口等等，在Android系统中的很多服务，比如短信服务啊也是通过这么方式进入通信的。
 
 ##### 如何使用AIDL？
+
+
