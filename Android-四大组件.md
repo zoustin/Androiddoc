@@ -4,10 +4,70 @@
 
 ![5b31fc371a9ab](https://i.loli.net/2018/06/26/5b31fc371a9ab.jpg)
 
-### ※Activity活动界面
+### ※Activity活动
 
-### ※Service服务
+1. Activity的生命周期：6个系统回调方法 
 
-### ※ContenProvider 内容提供者
+   onCreate() : 此时Activity已经创建但还在后台，为不可见状态
 
-### ※BoardCastReciver 广播
+   onStart()：此时Activity出现在前台，为可见状态，但还是操作状态
+
+   onResume()：此时Activity出现在前台，为可见状态，并且可操作
+
+   onPause()：此时Activity的焦点被其他控件获取，比如对话框
+
+    onStop()：此时Activity出任务栈，被其他Activity占领
+
+    onDestroy()：此时Activity被系统销毁
+
+   还有一个onRestart()：当Activity跳转到另外一个Activity，在没有销毁的情况下，返回出现，或者按home键，再回到该Activity
+
+   ![](https://developer.android.com/guide/components/images/activity_lifecycle.png)
+
+   一个保持状态的案例
+
+   ```java
+   TextView mTextView;
+   
+   // some transient state for the activity instance
+   String mGameState;
+   
+   @Override
+   public void onCreate(Bundle savedInstanceState) {
+       // call the super class onCreate to complete the creation of activity like
+       // the view hierarchy
+       super.onCreate(savedInstanceState);
+   
+       // recovering the instance state
+       if (savedInstanceState != null) {
+           mGameState = savedInstanceState.getString(GAME_STATE_KEY);
+       }
+   
+       // set the user interface layout for this activity
+       // the layout file is defined in the project res/layout/main_activity.xml file
+       setContentView(R.layout.main_activity);
+   
+       // initialize member TextView so we can manipulate it later
+       mTextView = (TextView) findViewById(R.id.text_view);
+   }
+   
+   // This callback is called only when there is a saved instance that is previously saved by using
+   // onSaveInstanceState(). We restore some state in onCreate(), while we can optionally restore
+   // other state here, possibly usable after onStart() has completed.
+   // The savedInstanceState Bundle is same as the one used in onCreate().
+   @Override
+   public void onRestoreInstanceState(Bundle savedInstanceState) {
+       mTextView.setText(savedInstanceState.getString(TEXT_VIEW_KEY));
+   }
+   
+   // invoked when the activity may be temporarily destroyed, save the instance state here
+   @Override
+   public void onSaveInstanceState(Bundle outState) {
+       outState.putString(GAME_STATE_KEY, mGameState);
+       outState.putString(TEXT_VIEW_KEY, mTextView.getText());
+   
+       // call superclass to save any view hierarchy
+       super.onSaveInstanceState(outState);
+   }
+   ```
+
