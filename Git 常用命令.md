@@ -3,7 +3,7 @@
 #####1.流程图
 ![](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png)
 
-```
+```java
     Workspace：工作区
     Index / Stage：暂存区
     Repository：仓库区（或本地仓库）
@@ -12,8 +12,8 @@
 
 #####2.新建代码库
 
-```
-# 在当前目录新建一个Git代码库
+```java
+# "在当前目录新建一个Git代码库"
 $ git init
 
 # 新建一个目录，将其初始化为Git代码库
@@ -26,7 +26,7 @@ $ git clone [url]
 #####3.配置
 Git的设置文件为**.gitconfig**，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
 
-```
+```java
 # 显示当前的Git配置
 $ git config --list
 
@@ -38,17 +38,14 @@ $ git config [--global] user.name "[name]"
 $ git config [--global] user.email "[email address]"
 
 # 生产SSH公钥
-$ cd ~/.ssh    进入目录
-$ ls           列表
-authorized_keys2  id_dsa       known_hosts
-config            id_dsa.pub
-$ ssh-keygen   生产ssh
-$ cat ~/.ssh/id_rsa.pub  获取公钥密码
+$ ssh-keygen -t rsa -C "youremail@example.com"
+#获取公钥密码
+$ cat ~/.ssh/id_rsa.pub
 ```
 
 #####4.增加/删除文件
 
-```
+```java
 # 添加指定文件到暂存区
 $ git add [file1] [file2] ...
 
@@ -74,7 +71,7 @@ $ git mv [file-original] [file-renamed]
 
 #####5.代码提交
 
-```
+```java
 # 提交暂存区到仓库区
 $ git commit -m [message]
 
@@ -97,7 +94,7 @@ $ git commit --amend [file1] [file2] ...
 
 #####6.分支
 
-```
+```java
 # 列出所有本地分支
 $ git branch
 
@@ -144,7 +141,7 @@ $ git branch -dr [remote/branch]
 
 #####7.标签
 
-```
+```java
 # 列出所有tag
 $ git tag
 
@@ -175,7 +172,7 @@ $ git checkout -b [branch] [tag]
 
 #####8.查看信息
 
-```
+```java
 # 显示有变更的文件
 $ git status
 
@@ -185,13 +182,13 @@ $ git log
 # 显示commit历史，以及每次commit发生变更的文件
 $ git log --stat
 
-# 搜索提交历史，根据关键词
+# "搜索提交历史，根据关键词"
 $ git log -S [keyword]
 
-# 显示某个commit之后的所有变动，每个commit占据一行
+# "显示某个commit之后的所有变动，每个commit占据一行"
 $ git log [tag] HEAD --pretty=format:%s
 
-# 显示某个commit之后的所有变动，其"提交说明"必须符合搜索条件
+# "显示某个commit之后的所有变动，其"提交说明"必须符合搜索条件"
 $ git log [tag] HEAD --grep feature
 
 # 显示某个文件的版本历史，包括文件改名
@@ -240,7 +237,7 @@ $ git reflog
 
 #####9.远程同步
 
-```
+```java
 # 下载远程仓库的所有变动
 $ git fetch [remote]
 
@@ -268,7 +265,7 @@ $ git push [remote] --all
 
 #####10.撤销
 
-```
+```java
 # 恢复暂存区的指定文件到工作区
 $ git checkout [file]
 
@@ -304,7 +301,24 @@ $ git stash pop
 
 ##### 11.其他
 
-```
+```java
 # 生成一个可供发布的压缩包
 $ git archive
+#重新配置忽略文件 比如想忽略某一个文件夹 ，首先写好目录的忽略文件目录
+*.iml
+.idea
+.gradle
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/local.properties
+//全局配置
+git config --global core.ignorecase false  (全局设置 大小写敏感 。)
+//清除所有缓存，重新提交
+git rm -r --cache .  (注意后面“点”)
+git add .
+git commit -m "gitignore working"
+git push
+
 ```
