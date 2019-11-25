@@ -345,6 +345,15 @@ git push -u origin master
 //查看使用的传输协议:
 git remote -v
 
+//将分支修改的内容保存起来
+git stash
+//查看存放列表
+git stash list
+//恢复保存的内容
+git stash apply stash@{id}
+//删除保存的内容
+git stash drop stash@{id}
+
 ```
 
 
