@@ -257,10 +257,10 @@ $ git pull [remote] [branch]
 $ git push [remote] [branch]
 
 # 强行推送当前分支到远程仓库，即使有冲突
-$ git push [remote] --force
+$ git push [remote] master --force
 
 # 推送所有分支到远程仓库
-$ git push [remote] --all
+$ git push [remote] master  --all
 ```
 
 #####10.撤销
@@ -321,4 +321,30 @@ git add .
 git commit -m "gitignore working"
 git push
 
+//问题出现：
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/zoustin/Transferline.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+//先解决远程冲突
+//再推送
+
+//查看修改日志
+git reflog
+//撤回到对应的版本号
+git reset --hard e18bb2e
+
+//换了个ssh key,发现每次git push origin master的时候都要输入用户名和密码
+//原因是在添加远程库的时候使用了https的方式。。所以每次都要用https的方式push到远程库
+//重新设置成ssh的方式:
+git remote rm origin
+git remote add origin git@github.com:username/repository.git
+git push -u origin master
+//查看使用的传输协议:
+git remote -v
+
 ```
+
+
